@@ -22,7 +22,7 @@ const Article = mongoose.model("Article",{
     })
 
 
-
+app.route("/articles").get().post().delete();
 
 app.get("/articles",(req,res)=>{
     Article.find()
@@ -39,6 +39,12 @@ app.post("/articles",(req,res)=>{
 
     articles.save()
     .then(res.send("data inserted"))
+    .then((err)=>console.log(err))
+})
+
+app.delete("/articles",(req,res)=>{
+    Article.deleteMany({})
+    .then(res.send("Deleted all articles"))
     .then((err)=>console.log(err))
 })
 
