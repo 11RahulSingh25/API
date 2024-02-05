@@ -22,6 +22,26 @@ const Article = mongoose.model("Article",{
     })
 
 
+
+
+app.get("/articles",(req,res)=>{
+    Article.find()
+    .then((foundArticles) => {
+       res.send(foundArticles)
+  }).catch((err) => console.log(err))
+})
+
+app.post("/articles",(req,res)=>{
+    const articles = new Article({
+        title:req.body.title,
+        content :req.body.content
+    })
+
+    articles.save()
+    .then(res.send("data inserted"))
+    .then((err)=>console.log(err))
+})
+
 app.listen(3000,()=>{
     console.log("server is running at port 30000");
 })
