@@ -22,7 +22,7 @@ const Article = mongoose.model("Article",{
     })
 
 
-app.route("/articles").get().post().delete();
+// app.route("/articles").get().post().delete();
 
 app.get("/articles",(req,res)=>{
     Article.find()
@@ -47,6 +47,20 @@ app.delete("/articles",(req,res)=>{
     .then(res.send("Deleted all articles"))
     .then((err)=>console.log(err))
 })
+
+//////////////////// Targeting specific title ////////////////////
+
+app.route("/articles/:articleTitle")
+
+.get((req,res)=>{
+    Article.findOne({title: req.params.articleTitle})
+    .then((foundArticle)=>{
+        if(foundArticle) res.send(foundArticle)
+        else res.send("Article not found")
+    })
+    .then((err)=> console.log(err))
+})
+
 
 app.listen(3000,()=>{
     console.log("server is running at port 30000");
