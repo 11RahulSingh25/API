@@ -61,6 +61,20 @@ app.route("/articles/:articleTitle")
     .then((err)=> console.log(err))
 })
 
+.put((req,res)=>{
+    Article.updateOne(
+        {title: req.params.articleTitle},
+        {title: req.body.title, content: req.body.content}
+        )
+        .then(res.send("Successfully updated"))
+        .then((err)=>console.log(err))
+})
+
+.delete((req,res)=>{
+    Article.deleteOne({title : req.params.articleTitle})
+    .then(res.send("Deleted Successfully"))
+    .then((err)=>console.log(err))
+});
 
 app.listen(3000,()=>{
     console.log("server is running at port 30000");
